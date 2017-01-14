@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_my_Travel"
+            android:icon="@drawable/mytravels"
+            android:title="@string/my_travels" />
+        <item
+            android:id="@+id/nav_MyCurrentTravel"
+            android:icon="@drawable/mycardetails"
+            android:title="@string/current_travel" />
+        <item
+            android:id="@+id/nav_myNotificatios"
+            android:icon="@drawable/notificationbell"
+            android:title="@string/notification_activity" />
+        <item android:title="@string/logout"
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/logout" />
+    </group>
+
+    <item android:title="@string/more">
+        <menu>
+            <item
+                android:id="@+id/nav_about"
+                android:icon="@drawable/info"
+                android:title="@string/About" />
+            <item
+                android:id="@+id/nav_help"
+                android:icon="@drawable/help"
+                android:title="@string/help" />
+        </menu>
+    </item>
+
+</menu>

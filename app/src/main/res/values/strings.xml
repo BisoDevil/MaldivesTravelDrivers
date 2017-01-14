@@ -1,0 +1,46 @@
+<resources>
+    <string name="app_name">Maldives Travel Driver</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="phone_No">Enter your phone No.</string>
+    <string name="password_hint">Enter your password</string>
+    <string name="car_No">Car Number</string>
+    <string name="button_login">Login</string>
+    <string name="please_wait">Please Wait…</string>
+    <string name="welcome">Welcome back, </string>
+    <string name="arrived">Finish</string>
+    <string name="my_travels">My Travels</string>
+    <string name="current_travel">Current Travel</string>
+    <string name="logout">Logout</string>
+    <string name="more">More</string>
+    <string name="About">About</string>
+    <string name="help">Help</string>
+    <string name="customer_name">Customer Name</string>
+    <string name="customer_phoneNo">Customer Phone No.</string>
+    <string name="from">From</string>
+    <string name="to">To</string>
+    <string name="calling">Calling</string>
+    <string name="nav_about">About our App</string>
+    <string name="about_message">Maldives Travel V1.0 is an application to let you track and monitor your car from Maldives travel agency </string>
+    <string name="myTravel_Activity">My Travels</string>
+    <string name="help_activity">Help</string>
+    <string name="notification_activity">My Notifications</string>
+    <string name="current_activity">My Current Travel</string>
+
+    <string name="new_message_notification_title_template">New message: %1$s</string>
+
+    <!-- TODO: remove this placeholder text -->
+    <string name="new_message_notification_placeholder_text_template">You said %1$s and lorem ipsum
+        dolor sit amet, consectetur adipiscing elit. Etiam non enim magna. Morbi dictum, velit vel
+        semper venenatis, magna odio volutpat velit, at ullamcorper nulla lacus sed turpis.
+        Pellentesque vitae metus elit, nec tincidunt tellus. Integer sed nisl sem, ullamcorper
+        ornare lacus. Duis ac mauris sed massa congue volutpat. Donec sed erat sit amet turpis
+        viverra rhoncus sit amet nec magna. Donec lacinia ligula at libero volutpat volutpat nec nec
+        tortor.
+    </string>
+
+    <string name="action_share">Share</string>
+    <string name="action_reply">Reply</string>
+</resources>
