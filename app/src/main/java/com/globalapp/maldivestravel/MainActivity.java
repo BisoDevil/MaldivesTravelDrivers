@@ -52,8 +52,6 @@ import com.kinvey.android.callback.KinveyListCallback;
 import com.kinvey.java.Query;
 import com.kinvey.java.core.KinveyClientCallback;
 
-import java.io.IOException;
-import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback {
@@ -89,6 +87,7 @@ public class MainActivity extends AppCompatActivity
             final Client mKinveyClient = new Client.Builder(this.getApplicationContext()).build();
             mKinveyClient.push().initialize(getApplication());
         } catch (Exception ex) {
+            ex.printStackTrace();
         }
 
 
@@ -98,6 +97,7 @@ public class MainActivity extends AppCompatActivity
             startService(new Intent(getApplicationContext(), Locations.class));
             Toast.makeText(MainActivity.this, "Service is started", Toast.LENGTH_SHORT).show();
         } catch (Exception ex) {
+            ex.printStackTrace();
         }
 
 
@@ -111,22 +111,15 @@ public class MainActivity extends AppCompatActivity
                 if (ActivityCompat.shouldShowRequestPermissionRationale(this,
                         Manifest.permission.ACCESS_FINE_LOCATION)) {
 
-                    // Show an expanation to the user *asynchronously* -- don't block
-                    // this thread waiting for the user's response! After the user
-                    // sees the explanation, try again to request the permission.
 
                 } else {
 
-                    // No explanation needed, we can request the permission.
 
                     ActivityCompat.requestPermissions(this,
                             new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION,
                                     Manifest.permission.WRITE_EXTERNAL_STORAGE},
                             MY_PERMISSIONS_REQUEST_Location);
 
-                    // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
-                    // app-defined int constant. The callback method gets the
-                    // result of the request.
 
                 }
             }
@@ -162,6 +155,7 @@ public class MainActivity extends AppCompatActivity
 //                                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latlong, 16));
 
                             } catch (Exception ex) {
+                                ex.printStackTrace();
                             }
 
                         }
@@ -173,6 +167,7 @@ public class MainActivity extends AppCompatActivity
                     });
 
                 } catch (Exception ex) {
+                    ex.printStackTrace();
 
                 }
 
@@ -376,6 +371,7 @@ public class MainActivity extends AppCompatActivity
                 try {
                     mMap.clear();
                 } catch (Exception ex) {
+                    ex.printStackTrace();
                 }
 
             }
