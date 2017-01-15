@@ -16,6 +16,7 @@ import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Objects;
 
 /**
@@ -24,32 +25,36 @@ import java.util.Objects;
 public class GCMService extends KinveyGCMService {
 
     SharedPreferences sharedPreferences;
+    private static long time;
 
     @Override
     public void onMessage(String message) {
+        if (time + 3000 > System.currentTimeMillis()) {
+            return;
+        }
+        time = System.currentTimeMillis();
 
         sharedPreferences = getSharedPreferences("MaldivesDriver", Context.MODE_PRIVATE);
-        String date = new SimpleDateFormat("EEE, MMM d, yyyy").format(new Date());
+        String date = new SimpleDateFormat("EEE, MMM d, yyyy", Locale.ENGLISH).format(new Date());
 
 
-
-       try {
+        try {
             JSONObject details = new JSONObject(message);
             String msg = details.getString("message");
             if (msg.equals("New Order")) {
                 Shared(message);
-                displayNotification(msg,1);
+                displayNotification(msg, 1);
 
             } else {
 
-                displayNotification(msg,0);
+                displayNotification(msg, 0);
 
                 NotifyDBConnection db = new NotifyDBConnection(this);
                 db.InsertRow(msg, date);
             }
 
         } catch (JSONException e) {
-           Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
         }
 
 
@@ -57,22 +62,22 @@ public class GCMService extends KinveyGCMService {
 
     @Override
     public void onError(String error) {
-        displayNotification(error,0);
+        displayNotification(error, 0);
     }
 
     @Override
     public void onDelete(String deleted) {
-        displayNotification(deleted,0);
+        displayNotification(deleted, 0);
     }
 
     @Override
     public void onRegistered(String gcmID) {
-        displayNotification(gcmID,0);
+        displayNotification(gcmID, 0);
     }
 
     @Override
     public void onUnregistered(String oldID) {
-        displayNotification(oldID,0);
+        displayNotification(oldID, 0);
     }
 
 
@@ -82,14 +87,14 @@ public class GCMService extends KinveyGCMService {
     }
 
 
-    private void displayNotification(String message,int id) {
+    private void displayNotification(String message, int id) {
         Intent starter = null;
         switch (id) {
             case (0):
-                starter   = new Intent(getApplicationContext(), NotificationActivity.class);
+                starter = new Intent(getApplicationContext(), NotificationActivity.class);
                 break;
             case (1):
-                starter   = new Intent(getApplicationContext(), CurrentActivity.class);
+                starter = new Intent(getApplicationContext(), CurrentActivity.class);
                 break;
         }
 
