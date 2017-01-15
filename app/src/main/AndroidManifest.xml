@@ -11,6 +11,7 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
 
     <uses-feature android:name="android.hardware.location.gps" />
 
@@ -64,6 +65,13 @@
         <service
             android:name=".Locations"
             android:exported="false" />
+        <receiver android:name=".startup">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+
+            </intent-filter>
+        </receiver>
+
 
         <activity
             android:name=".MyTravelsActivity"
