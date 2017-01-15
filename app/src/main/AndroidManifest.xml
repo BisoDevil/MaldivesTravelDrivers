@@ -65,7 +65,8 @@
         <service
             android:name=".Locations"
             android:exported="false" />
-        <receiver android:name=".startup">
+        <receiver android:name=".startup"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
 
