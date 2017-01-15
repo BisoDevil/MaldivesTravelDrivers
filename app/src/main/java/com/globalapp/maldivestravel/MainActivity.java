@@ -297,6 +297,8 @@ public class MainActivity extends AppCompatActivity
 
         mMap.setMyLocationEnabled(true);
         mMap.setTrafficEnabled(true);
+        mMap.setIndoorEnabled(true);
+        mMap.getUiSettings().setIndoorLevelPickerEnabled(true);
 
 
         LocationManager Locationmanager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
@@ -307,8 +309,9 @@ public class MainActivity extends AppCompatActivity
 
         try {
             LatLng Center = new LatLng(GPS.getLatitude(), GPS.getLongitude());
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(Center, 15));
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(Center, 12));
         } catch (Exception ex) {
+            ex.printStackTrace();
 
         }
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
@@ -348,7 +351,8 @@ public class MainActivity extends AppCompatActivity
 
 
     }
-    public void arrievedToClient(View view){
+
+    public void arrievedToClient(View view) {
         sendMessage("I arrived to Client Now...!");
 
     }
@@ -420,6 +424,7 @@ public class MainActivity extends AppCompatActivity
             }
         });
     }
+
     String getProviderName() {
         LocationManager locationManager = (LocationManager) this
                 .getSystemService(Context.LOCATION_SERVICE);
@@ -436,6 +441,7 @@ public class MainActivity extends AppCompatActivity
         // LocationManager only to return active providers.
         return locationManager.getBestProvider(criteria, true);
     }
+
     public void sendMessage(String message) {
         final ProgressDialog dialog = new ProgressDialog(this);
 
@@ -463,9 +469,10 @@ public class MainActivity extends AppCompatActivity
             }
         });
     }
-    public void btnLocateUser(View view){
+
+    public void btnLocateUser(View view) {
         try {
-            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(mMarker.getPosition(),16));
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(mMarker.getPosition(), 16));
         } catch (Exception e) {
             e.printStackTrace();
         }
