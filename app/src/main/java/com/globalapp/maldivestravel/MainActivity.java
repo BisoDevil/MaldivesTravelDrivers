@@ -127,7 +127,7 @@ public class MainActivity extends AppCompatActivity
         }
 
 
-        locationManager.requestLocationUpdates(getProviderName(), 3000, 1, new LocationListener() {
+        locationManager.requestLocationUpdates(getProviderName(), 1000, 1, new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
                 try {
