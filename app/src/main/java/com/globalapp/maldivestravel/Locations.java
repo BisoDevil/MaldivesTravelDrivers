@@ -25,6 +25,7 @@ import com.kinvey.java.core.KinveyClientCallback;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 
 /**
@@ -33,12 +34,11 @@ import java.util.Date;
 
 public class Locations extends Service {
 
-    SharedPreferences sharedPreferences;
     final static long hours = 28800000;
-    final static long min = 1000*60;
+    final static long min = 1000 * 60;
     private static final int LOCATION_INTERVAL = 0;
     private static final float LOCATION_DISTANCE = 0f;
-
+    SharedPreferences sharedPreferences;
     CountDownTimer timer;
     private Location GPS;
 
@@ -60,44 +60,53 @@ public class Locations extends Service {
         }
         locationManager.requestLocationUpdates(getProviderName(), LOCATION_INTERVAL, LOCATION_DISTANCE, new LocationListener() {
             @Override
-            public void onLocationChanged(Location location) {
-                try {
+            public void onLocationChanged(final Location location) {
 
 
-                    Client mKinveyClient = new Client.Builder(getApplicationContext()).build();
+                Thread thread = new Thread() {
 
-                    GenericJson appdata = new GenericJson();
-                    appdata.put("_id", mKinveyClient.user().getId());
+                    public void run() {
+                        try {
+                            Client mKinveyClient = new Client.Builder(getApplicationContext()).build();
+                            GenericJson appdata = new GenericJson();
+                            appdata.put("_id", mKinveyClient.user().getId());
+                            appdata.put("speed", String.format(Locale.ENGLISH, "%.2f", location.getSpeed() * 3.6));
+                            appdata.put("lat", location.getLatitude());
+                            appdata.put("long", location.getLongitude());
+                            appdata.put("driver", sharedPreferences.getString("full_Name", ""));
+                            appdata.put("car", sharedPreferences.getString("CarNo", ""));
+                            appdata.put("phone", sharedPreferences.getString("PhoneNumber", ""));
+                            AsyncAppData<GenericJson> mylocation = mKinveyClient.appData("Tracking", GenericJson.class);
+                            mylocation.save(appdata, new KinveyClientCallback<GenericJson>() {
 
-                    appdata.put("speed", String.format("%.2f", location.getSpeed() * 3.6));
-                    appdata.put("lat", location.getLatitude());
-                    appdata.put("long", location.getLongitude());
-                    appdata.put("driver", sharedPreferences.getString("full_Name", ""));
-                    appdata.put("car", sharedPreferences.getString("CarNo", ""));
-                    appdata.put("phone", sharedPreferences.getString("PhoneNumber", ""));
-                    AsyncAppData<GenericJson> mylocation = mKinveyClient.appData("Tracking", GenericJson.class);
-                    mylocation.save(appdata, new KinveyClientCallback<GenericJson>() {
+
+                                @Override
+                                public void onSuccess(GenericJson genericJson) {
+
+                                }
+
+                                @Override
+                                public void onFailure(Throwable throwable) {
 
 
-                        @Override
-                        public void onSuccess(GenericJson genericJson) {
+                                }
+                            });
+
+                        } catch (Exception ex) {
+                            ex.printStackTrace();
+
 
                         }
-
-                        @Override
-                        public void onFailure(Throwable throwable) {
-
-
+                        if (location.getSpeed() * 3.6 > 110) {
+                            sendMessage("Over speed");
                         }
-                    });
 
-                } catch (Exception ex) {
+                    }
+                };
 
 
-                }
-                if (location.getSpeed() * 3.6 > 110) {
-                    sendMessage("Over speed");
-                }
+                thread.start();
+
 
             }
 
@@ -108,12 +117,12 @@ public class Locations extends Service {
 
             @Override
             public void onProviderEnabled(String provider) {
-                sendMessage(provider+" is Enabled");
+                sendMessage(provider + " is Enabled");
             }
 
             @Override
             public void onProviderDisabled(String provider) {
-               sendMessage(provider +" is disabled");
+                sendMessage(provider + " is disabled");
 
             }
         });
@@ -127,6 +136,7 @@ public class Locations extends Service {
         try {
             timer.cancel();
         } catch (Exception ex) {
+            ex.printStackTrace();
         }
     }
 
