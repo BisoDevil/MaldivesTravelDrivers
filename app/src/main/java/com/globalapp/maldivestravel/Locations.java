@@ -25,6 +25,7 @@ import com.kinvey.java.core.KinveyClientCallback;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 
 /**
@@ -62,14 +63,12 @@ public class Locations extends Service {
             @Override
             public void onLocationChanged(Location location) {
                 try {
-
-
                     Client mKinveyClient = new Client.Builder(getApplicationContext()).build();
 
                     GenericJson appdata = new GenericJson();
                     appdata.put("_id", mKinveyClient.user().getId());
 
-                    appdata.put("speed", String.format("%.2f", location.getSpeed() * 3.6));
+                    appdata.put("speed", String.format(Locale.US,"%.2f", location.getSpeed() * 3.6));
                     appdata.put("lat", location.getLatitude());
                     appdata.put("long", location.getLongitude());
                     appdata.put("driver", sharedPreferences.getString("full_Name", ""));
