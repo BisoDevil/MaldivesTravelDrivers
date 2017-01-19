@@ -29,7 +29,9 @@ public class LoginActivity extends AppCompatActivity {
         try {
             final EditText txtPhoneNumber = (EditText) findViewById(R.id.txtPhoneNumber);
             txtPhoneNumber.setText(mymanager.getLine1Number());
-        }catch (Exception ex){}
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
 
     }
 

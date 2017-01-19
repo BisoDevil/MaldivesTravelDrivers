@@ -37,8 +37,8 @@ public class Locations extends Service {
     SharedPreferences sharedPreferences;
     final static long hours = 28800000;
     final static long min = 1000 * 60;
-    private static final int LOCATION_INTERVAL = 0;
-    private static final float LOCATION_DISTANCE = 0f;
+    private static final int LOCATION_INTERVAL = 1000;
+    private static final float LOCATION_DISTANCE = 1f;
 
     CountDownTimer timer;
     private Location GPS;

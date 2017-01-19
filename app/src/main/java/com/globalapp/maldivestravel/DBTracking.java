@@ -14,11 +14,11 @@ import java.util.Date;
  * Created by Smiley on 10/10/2016.
  */
 
-public class DBTracking extends SQLiteOpenHelper {
+  class DBTracking extends SQLiteOpenHelper {
 
-    public static  String TABLE_NAME ="Places";
-    public static String DBName="Tracking.db";
-    public DBTracking(Context context) {
+     private static  String TABLE_NAME ="Places";
+     private static String DBName="Tracking.db";
+      DBTracking(Context context) {
 
         super(context, Environment.getExternalStorageDirectory()+ File.separator+"Maldives"
                 +File.separator+DBName,null,1);
@@ -42,7 +42,7 @@ public class DBTracking extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void addRow(String CustomerName,String Driver,String Lat,String Long,String Speed,String Time){
+     void addRow(String CustomerName,String Driver,String Lat,String Long,String Speed,String Time){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues Values = new ContentValues();
         Values.put("CustomerName", CustomerName);

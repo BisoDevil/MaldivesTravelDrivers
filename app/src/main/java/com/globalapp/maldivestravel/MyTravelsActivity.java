@@ -18,7 +18,12 @@ import com.google.api.client.json.GenericJson;
 import com.kinvey.android.AsyncAppData;
 import com.kinvey.android.Client;
 import com.kinvey.android.callback.KinveyListCallback;
+import com.kinvey.android.offline.SqlLiteOfflineStore;
 import com.kinvey.java.Query;
+import com.kinvey.java.cache.CachePolicy;
+import com.kinvey.java.cache.InMemoryLRUCache;
+import com.kinvey.java.offline.OfflinePolicy;
+import com.kinvey.java.offline.OfflineStore;
 import com.kinvey.java.query.AbstractQuery;
 
 public class MyTravelsActivity extends AppCompatActivity {
@@ -37,6 +42,8 @@ public class MyTravelsActivity extends AppCompatActivity {
         query.equals("Driver_Phone_No", sharedPreferences.getString("PhoneNumber", ""));
         query.addSort("Date", AbstractQuery.SortOrder.DESC);
         AsyncAppData<GenericJson> myData = mKinveyClient.appData("Travels", GenericJson.class);
+        myData.setCache(new InMemoryLRUCache(), CachePolicy.NETWORKFIRST);
+        myData.setOffline(OfflinePolicy.ONLINE_FIRST, new SqlLiteOfflineStore<GenericJson>(getApplicationContext()));
         myData.get(query, new KinveyListCallback<GenericJson>() {
             @Override
             public void onSuccess(GenericJson[] genericJsons) {
@@ -44,6 +51,7 @@ public class MyTravelsActivity extends AppCompatActivity {
                     PBarTravels.setVisibility(View.INVISIBLE);
                     SetupListView(genericJsons);
                 } catch (Exception ex) {
+                    ex.printStackTrace();
 
                 }
 
