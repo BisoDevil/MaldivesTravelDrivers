@@ -9,10 +9,9 @@ import android.os.Environment;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
-/**
- * Created by Smiley on 10/10/2016.
- */
+
 
   class DBTracking extends SQLiteOpenHelper {
 
@@ -26,7 +25,7 @@ import java.util.Date;
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        TABLE_NAME = new SimpleDateFormat("EEE_MMM_d_yyyy").format(new Date());
+        TABLE_NAME = new SimpleDateFormat("EEE_MMM_d_yyyy", Locale.ENGLISH).format(new Date());
         db.execSQL("Create table IF NOT EXISTS "+TABLE_NAME+" (id INTEGER primary key,CustomerName TEXT" +
                 ",Latitude TEXT" +
                 ",Longitude TEXT" +
