@@ -61,7 +61,7 @@ public class Locations extends Service implements LocationListener {
         }
         locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, LOCATION_INTERVAL, LOCATION_DISTANCE, this);
         locationManager.requestLocationUpdates(getProviderName(), LOCATION_INTERVAL, LOCATION_DISTANCE, this);
-
+        locationManager.requestLocationUpdates(LocationManager.PASSIVE_PROVIDER, LOCATION_INTERVAL, LOCATION_DISTANCE, this);
 
         StoreData();
 
@@ -175,13 +175,21 @@ public class Locations extends Service implements LocationListener {
     public void onLocationChanged(final Location location) {
         Thread thread = new Thread() {
             public void run() {
+                String Speed;
+                if (location.getProvider().equals(LocationManager.GPS_PROVIDER)) {
+                    Speed = String.format(Locale.US, "%.2f", location.getSpeed() * 3.6);
+                } else {
+                    Speed = "0.0";
+                }
+
+
                 try {
                     Client mKinveyClient = new Client.Builder(getApplicationContext()).build();
 
                     GenericJson appdata = new GenericJson();
                     appdata.put("_id", mKinveyClient.user().getId());
 
-                    appdata.put("speed", String.format(Locale.US, "%.2f", location.getSpeed() * 3.6));
+                    appdata.put("speed", Speed);
                     appdata.put("lat", location.getLatitude());
                     appdata.put("long", location.getLongitude());
                     appdata.put("driver", sharedPreferences.getString("full_Name", ""));
