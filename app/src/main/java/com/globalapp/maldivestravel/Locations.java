@@ -37,8 +37,8 @@ public class Locations extends Service implements LocationListener {
     SharedPreferences sharedPreferences;
     final static long hours = 28800000;
     final static long min = 1000 * 60;
-    private static final int LOCATION_INTERVAL = 1000;
-    private static final float LOCATION_DISTANCE = 1f;
+    private static final int LOCATION_INTERVAL = 4000;
+    private static final float LOCATION_DISTANCE = 0.0f;
 
     CountDownTimer timer;
     private Location GPS;
@@ -55,9 +55,7 @@ public class Locations extends Service implements LocationListener {
         }
         locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, LOCATION_INTERVAL, LOCATION_DISTANCE, this);
         locationManager.requestLocationUpdates(getProviderName(), LOCATION_INTERVAL, LOCATION_DISTANCE, this);
-        locationManager.requestLocationUpdates(LocationManager.PASSIVE_PROVIDER, LOCATION_INTERVAL, LOCATION_DISTANCE, this);
-
-        StoreData();
+               StoreData();
 
     }
 
