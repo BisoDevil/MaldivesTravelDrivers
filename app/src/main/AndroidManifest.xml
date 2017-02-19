@@ -96,7 +96,7 @@
         <activity
             android:name=".NotificationActivity"
             android:label="@string/notification_activity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".CurrentActivity"
             android:label="@string/current_activity"
